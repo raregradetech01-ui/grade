@@ -1311,10 +1311,10 @@
     /* Installation Banner Styles */
     #install-banner {
       position: fixed;
-      bottom: 0;
+      top: 0;
       left: 0;
       right: 0;
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
       color: #ffffff;
       padding: 1rem;
       text-align: center;
@@ -1324,6 +1324,13 @@
       justify-content: center;
       gap: 1rem;
       font-size: 1rem;
+      opacity: 0;
+      transform: translateY(-100%);
+      transition: all 0.5s ease;
+    }
+    #install-banner.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     #install-banner button {
       background: #ffffff;
@@ -2100,6 +2107,11 @@
         link.click();
         document.body.removeChild(link);
       });
+      // Show banner with animation
+      const banner = document.getElementById('install-banner');
+      setTimeout(() => {
+        banner.classList.add('visible');
+      }, 100);
     });
   </script>
 </body>
