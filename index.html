@@ -517,6 +517,7 @@
     /* Category Pills */
     .cat-pills {
       display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px;
+      justify-content: center;
     }
 
     .cat-pill {
@@ -1460,7 +1461,7 @@
 
   <!-- ===== TOP HEADER ===== -->
   <header id="top-header">
-    <a class="nav-logo" onclick="navigateTo('home')">
+    <a class="nav-logo" onclick="navigateTo('shop')">
       <img src="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png" alt="Rare Grade Tech"/>
       <span>RARE GRADE TECH</span>
     </a>
@@ -1479,126 +1480,6 @@
   </header>
 
   <!-- ===== PAGES ===== -->
-
-  <!-- HOME PAGE -->
-  <div id="page-home" class="page">
-    <section class="hero">
-      <div class="hero-bg"></div>
-      <div class="hero-grid"></div>
-      <div class="hero-content">
-        <div class="hero-chip">🚀 Premium IT Solutions • Mokopane, Limpopo</div>
-        <h1>Tech That <span>Powers</span> Your Business</h1>
-        <p>Enterprise-grade hardware, software licenses, and IT equipment delivered to your door. Built for professionals.</p>
-        <div class="hero-actions">
-          <button class="btn-primary" onclick="navigateTo('shop')">
-            <i class="fas fa-store"></i> Browse Shop
-          </button>
-          <button class="btn-outline" onclick="navigateTo('profile')">
-            <i class="fas fa-headset"></i> Get Support
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <div class="stats-strip">
-      <div class="stats-grid">
-        <div class="stat-item fade-in">
-          <h3>500+</h3>
-          <p>Products</p>
-        </div>
-        <div class="stat-item fade-in">
-          <h3>2K+</h3>
-          <p>Happy Clients</p>
-        </div>
-        <div class="stat-item fade-in">
-          <h3>99%</h3>
-          <p>Uptime SLA</p>
-        </div>
-        <div class="stat-item fade-in">
-          <h3>24/7</h3>
-          <p>Support</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-label">Why Choose Us</div>
-      <h2 class="section-title">Enterprise-Grade, Built for Everyone</h2>
-      <p class="section-sub">From small businesses to large enterprises — we have the tech stack you need.</p>
-
-      <div class="features-grid">
-        <div class="feature-card fade-in">
-          <div class="feature-icon" style="background:rgba(37,99,235,0.08);color:var(--blue);">
-            <i class="fas fa-shield-halved"></i>
-          </div>
-          <h3>Certified Security</h3>
-          <p>All security products are enterprise-certified with full support and warranty coverage.</p>
-        </div>
-        <div class="feature-card fade-in" style="transition-delay:0.1s">
-          <div class="feature-icon" style="background:rgba(22,163,74,0.08);color:var(--green);">
-            <i class="fas fa-truck-fast"></i>
-          </div>
-          <h3>Fast Delivery</h3>
-          <p>Same-day dispatch within Mokopane and Limpopo. Nationwide delivery available.</p>
-        </div>
-        <div class="feature-card fade-in" style="transition-delay:0.2s">
-          <div class="feature-icon" style="background:rgba(234,88,12,0.08);color:var(--orange);">
-            <i class="fas fa-rotate-left"></i>
-          </div>
-          <h3>30-Day Returns</h3>
-          <p>Not satisfied? Return any product within 30 days for a full refund or exchange.</p>
-        </div>
-        <div class="feature-card fade-in" style="transition-delay:0.3s">
-          <div class="feature-icon" style="background:rgba(168,85,247,0.08);color:#7c3aed;">
-            <i class="fas fa-headset"></i>
-          </div>
-          <h3>Expert Support</h3>
-          <p>Dedicated IT professionals available for installation, configuration, and ongoing support.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Featured Products Preview -->
-    <div class="section" style="padding-top:0;">
-      <div class="section-label">Best Sellers</div>
-      <h2 class="section-title">Featured Products</h2>
-      <p class="section-sub">Hand-picked by our team. The products professionals trust most.</p>
-      <div class="products-grid" id="home-featured-grid">
-        <div class="skeleton-card fade-in">
-          <div class="skel" style="height:200px;border-radius:0"></div>
-          <div style="padding:16px">
-            <div class="skel" style="height:14px;width:60%;margin-bottom:8px"></div>
-            <div class="skel" style="height:18px;width:90%;margin-bottom:8px"></div>
-            <div class="skel" style="height:12px;margin-bottom:16px"></div>
-            <div class="skel" style="height:36px;border-radius:999px"></div>
-          </div>
-        </div>
-        <div class="skeleton-card fade-in">
-          <div class="skel" style="height:200px;border-radius:0"></div>
-          <div style="padding:16px">
-            <div class="skel" style="height:14px;width:60%;margin-bottom:8px"></div>
-            <div class="skel" style="height:18px;width:90%;margin-bottom:8px"></div>
-            <div class="skel" style="height:12px;margin-bottom:16px"></div>
-            <div class="skel" style="height:36px;border-radius:999px"></div>
-          </div>
-        </div>
-        <div class="skeleton-card fade-in">
-          <div class="skel" style="height:200px;border-radius:0"></div>
-          <div style="padding:16px">
-            <div class="skel" style="height:14px;width:60%;margin-bottom:8px"></div>
-            <div class="skel" style="height:18px;width:90%;margin-bottom:8px"></div>
-            <div class="skel" style="height:12px;margin-bottom:16px"></div>
-            <div class="skel" style="height:36px;border-radius:999px"></div>
-          </div>
-        </div>
-      </div>
-      <div style="text-align:center;margin-top:32px;">
-        <button class="btn-primary" onclick="navigateTo('shop')">
-          View All Products <i class="fas fa-arrow-right"></i>
-        </button>
-      </div>
-    </div>
-  </div>
 
   <!-- SHOP PAGE -->
   <div id="page-shop" class="page active">
@@ -1626,7 +1507,7 @@
       </div>
     </div>
 
-    <div style="max-width:1400px;margin:0 auto;padding:0 24px 16px;">
+    <div style="max-width:1400px;margin:0 auto;padding:0 24px 16px;text-align:center;">
       <div class="cat-pills" id="cat-pills">
         <button class="cat-pill active" data-cat="all" onclick="setCat('all',this)">All</button>
         <button class="cat-pill" data-cat="hardware" onclick="setCat('hardware',this)">Hardware</button>
@@ -1745,10 +1626,6 @@
 
   <!-- ===== BOTTOM NAV ===== -->
   <nav id="bottom-nav">
-    <button class="nav-tab" data-tab="home" onclick="navigateTo('home')">
-      <i class="fas fa-house"></i>
-      <span>Home</span>
-    </button>
     <button class="nav-tab active" data-tab="shop" onclick="navigateTo('shop')">
       <i class="fas fa-store"></i>
       <span>Shop</span>
