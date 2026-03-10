@@ -48,7 +48,6 @@
       --shadow-sm: 0 2px 8px rgba(37,99,235,0.08);
       --shadow-md: 0 8px 32px rgba(37,99,235,0.12);
       --shadow-lg: 0 20px 60px rgba(37,99,235,0.15);
-      --sidebar-w: 220px;
 
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
@@ -189,103 +188,15 @@
     .ios-step p { font-size: 0.9rem; color: var(--text-2); }
     .ios-step strong { color: var(--text); }
 
-    /* ===== SIDEBAR (Desktop) ===== */
-    #sidebar {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: var(--sidebar-w);
-      height: 100vh;
-      z-index: 1000;
-      background: rgba(245,245,255,0.97);
-      backdrop-filter: blur(20px);
-      border-right: 1px solid var(--glass-border);
-      box-shadow: 2px 0 20px rgba(37,99,235,0.07);
-      flex-direction: column;
-      padding: 0 0 24px 0;
-      overflow-y: auto;
-    }
-
-    .sidebar-logo {
-      display: flex; align-items: center; gap: 10px;
-      font-family: 'Syne', sans-serif;
-      font-weight: 800; font-size: 1rem; color: var(--text);
-      cursor: pointer;
-      padding: 24px 20px 20px;
-      border-bottom: 1px solid var(--glass-border);
-      margin-bottom: 16px;
-    }
-
-    .sidebar-logo img { height: 28px; flex-shrink: 0; }
-
-    .sidebar-nav {
-      display: flex; flex-direction: column; gap: 4px;
-      padding: 0 12px;
-      flex: 1;
-    }
-
-    .sidebar-link {
-      display: flex; align-items: center; gap: 12px;
-      padding: 11px 14px;
-      border-radius: 12px;
-      color: var(--text-2);
-      font-size: 0.9rem; font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: 'Syne', sans-serif;
-      border: 1px solid transparent;
-      position: relative;
-    }
-
-    .sidebar-link i {
-      width: 20px; text-align: center;
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-
-    .sidebar-link:hover {
-      background: var(--blue-glow);
-      border-color: rgba(37,99,235,0.15);
-      color: var(--blue-bright);
-    }
-
-    .sidebar-link.active {
-      background: var(--blue-glow);
-      border-color: rgba(37,99,235,0.2);
-      color: var(--blue-bright);
-    }
-
-    .sidebar-cart-badge {
-      margin-left: auto;
-      min-width: 20px; height: 20px;
-      border-radius: 999px;
-      background: var(--red);
-      color: #fff;
-      font-size: 0.65rem; font-weight: 700;
-      display: none;
-      align-items: center; justify-content: center;
-      padding: 0 5px;
-    }
-
-    .sidebar-bottom {
-      padding: 12px 12px 0;
-      border-top: 1px solid var(--glass-border);
-      margin-top: 12px;
-    }
-
-    .sidebar-bottom p {
-      font-size: 0.72rem; color: var(--text-3);
-      padding: 8px 14px;
-      line-height: 1.5;
-    }
-
-    /* ===== TOP NAV (Desktop — slim, no links) ===== */
+    /* ===== TOP NAV ===== */
     #top-header {
       position: fixed; top: 0; left: 0; right: 0;
       z-index: 1000;
       padding: 0 24px;
       height: 64px;
-      display: flex; align-items: center; justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
       background: transparent;
       transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
       border-bottom: 1px solid transparent;
@@ -307,10 +218,20 @@
 
     .nav-logo img { height: 28px; }
 
-    /* Desktop: hide old inline nav links */
-    .nav-links-desktop { display: none; }
+    .nav-links-desktop {
+      display: flex; gap: 2rem; align-items: center;
+      justify-content: center;
+    }
 
-    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .nav-links-desktop a {
+      font-size: 0.875rem; font-weight: 500; color: var(--text-2);
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+
+    .nav-links-desktop a:hover, .nav-links-desktop a.active { color: var(--blue-bright); }
+
+    .nav-right { display: flex; align-items: center; gap: 12px; justify-content: flex-end; }
 
     .nav-cart-btn {
       position: relative;
@@ -636,18 +557,17 @@
     .shop-controls {
       max-width: 1400px; margin: 0 auto;
       padding: 24px;
-      display: flex; align-items: center; justify-content: center;
+      display: flex; align-items: center; justify-content: space-between;
       flex-wrap: wrap; gap: 16px;
     }
 
-    /* ── centered search bar on desktop ── */
     .search-bar {
       display: flex; align-items: center; gap: 10px;
       background: var(--ink-2);
       border: 1px solid var(--glass-border);
       border-radius: 999px;
       padding: 10px 20px;
-      width: 100%; max-width: 520px;
+      flex: 1; max-width: 400px;
       transition: border-color 0.2s, box-shadow 0.2s;
       box-shadow: var(--shadow-sm);
     }
@@ -1464,17 +1384,9 @@
       .hero h1 { font-size: 2.2rem; }
     }
 
-    /* ===== DESKTOP SIDEBAR LAYOUT ===== */
     @media (min-width: 768px) {
       #bottom-nav { display: none; }
-      body { padding-bottom: 0; padding-left: var(--sidebar-w); }
-      #sidebar { display: flex; }
-      /* Top header sits to the right of the sidebar */
-      #top-header { left: var(--sidebar-w); }
-      /* Hide the logo + cart button in top header on desktop since sidebar handles nav */
-      #top-header .nav-logo { display: none; }
-      #top-header .nav-right { display: none; }
-      /* Center the top header area — it becomes essentially invisible but keeps scroll effect */
+      body { padding-bottom: 0; }
     }
 
     /* Scrollbar */
@@ -1512,6 +1424,109 @@
 
     .cart-empty-state h2 { font-size: 1.5rem; color: var(--text); margin-bottom: 8px; }
     .cart-empty-state p { color: var(--text-3); margin-bottom: 32px; max-width: 280px; }
+    /* ===== SUPPORT MODALS ===== */
+    #support-modal {
+      position: fixed; inset: 0; z-index: 4500;
+      display: flex; align-items: flex-end;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    #support-modal.open { opacity: 1; pointer-events: all; }
+
+    .support-sheet {
+      position: relative; z-index: 1;
+      background: var(--ink-2);
+      border-radius: 24px 24px 0 0;
+      border-top: 1px solid var(--glass-border);
+      width: 100%; max-height: 85vh; overflow-y: auto;
+      padding: 28px 24px 36px;
+      transform: translateY(100%);
+      transition: transform 0.4s var(--ease-out);
+      box-shadow: 0 -20px 60px rgba(37,99,235,0.1);
+    }
+    #support-modal.open .support-sheet { transform: translateY(0); }
+
+    .support-sheet-handle {
+      width: 40px; height: 4px; border-radius: 2px;
+      background: var(--glass-border);
+      margin: 0 auto 24px;
+    }
+
+    .support-sheet h3 {
+      font-size: 1.3rem; margin-bottom: 6px; color: var(--text);
+    }
+
+    .support-sheet .support-sub {
+      font-size: 0.875rem; color: var(--text-3); margin-bottom: 24px;
+    }
+
+    .support-action-btn {
+      display: flex; align-items: center; gap: 14px;
+      width: 100%; padding: 16px 18px;
+      background: var(--ink-3);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: left;
+      text-decoration: none;
+    }
+    .support-action-btn:hover { border-color: var(--blue); background: var(--blue-glow); }
+
+    .support-action-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .support-action-text strong { display: block; font-size: 0.9rem; color: var(--text); font-family: 'Syne', sans-serif; }
+    .support-action-text span { font-size: 0.78rem; color: var(--text-3); }
+
+    .policy-body {
+      font-size: 0.875rem; color: var(--text-2); line-height: 1.8;
+    }
+    .policy-body h4 {
+      font-size: 0.95rem; color: var(--text); margin: 20px 0 8px;
+      font-family: 'Syne', sans-serif;
+    }
+    .policy-body p { margin-bottom: 12px; }
+
+    .support-close-btn {
+      width: 100%; padding: 14px;
+      background: var(--ink-3);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      color: var(--text-2); font-weight: 600; font-size: 0.9rem;
+      cursor: pointer; font-family: 'Syne', sans-serif;
+      margin-top: 20px;
+      transition: all 0.2s;
+    }
+    .support-close-btn:hover { background: var(--blue-glow); border-color: var(--blue); color: var(--blue); }
+
+    .return-form-group { margin-bottom: 16px; }
+    .return-form-group label {
+      display: block; font-size: 0.8rem; color: var(--text-3);
+      margin-bottom: 6px; font-weight: 600;
+    }
+    .return-form-group input,
+    .return-form-group textarea,
+    .return-form-group select {
+      width: 100%;
+      background: var(--ink-3);
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+      padding: 12px;
+      border-radius: 10px;
+      font-family: inherit;
+      outline: none;
+      font-size: 0.9rem;
+      transition: border-color 0.2s;
+    }
+    .return-form-group input:focus,
+    .return-form-group textarea:focus,
+    .return-form-group select:focus { border-color: var(--blue); }
+    .return-form-group textarea { resize: vertical; min-height: 90px; }
+
   </style>
 </head>
 <body>
@@ -1549,32 +1564,6 @@
     </div>
     <button class="btn-apply" style="margin-top:24px;" onclick="closeIosSheet()">Got it!</button>
   </div>
-
-  <!-- ===== DESKTOP SIDEBAR ===== -->
-  <nav id="sidebar">
-    <a class="sidebar-logo" onclick="navigateTo('shop')">
-      <img src="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png" alt="Rare Grade Tech"/>
-      <span>RARE GRADE</span>
-    </a>
-    <div class="sidebar-nav">
-      <a class="sidebar-link active" data-nav="shop" onclick="navigateTo('shop')">
-        <i class="fas fa-store"></i> Shop
-      </a>
-      <a class="sidebar-link" data-nav="wishlist" onclick="navigateTo('wishlist')">
-        <i class="far fa-heart"></i> Wishlist
-      </a>
-      <a class="sidebar-link" data-nav="cart" onclick="navigateTo('cart')">
-        <i class="fas fa-shopping-bag"></i> Cart
-        <span class="sidebar-cart-badge" id="sidebar-cart-badge">0</span>
-      </a>
-      <a class="sidebar-link" data-nav="profile" onclick="navigateTo('profile')">
-        <i class="fas fa-user"></i> Account
-      </a>
-    </div>
-    <div class="sidebar-bottom">
-      <p>Rare Grade Tech<br/>Mokopane, Limpopo, ZA</p>
-    </div>
-  </nav>
 
   <!-- ===== TOP HEADER ===== -->
   <header id="top-header">
@@ -1701,21 +1690,21 @@
 
     <div class="profile-section">
       <h3>Support</h3>
-      <div class="profile-item">
+      <div class="profile-item" onclick="openSupportModal('contact')">
         <div class="pi-icon" style="background:rgba(22,163,74,0.08);color:var(--green);">
           <i class="fas fa-headset"></i>
         </div>
         <span>Contact Support</span>
         <i class="fas fa-chevron-right"></i>
       </div>
-      <div class="profile-item">
+      <div class="profile-item" onclick="openSupportModal('returns')">
         <div class="pi-icon" style="background:rgba(234,88,12,0.08);color:var(--orange);">
           <i class="fas fa-rotate-left"></i>
         </div>
         <span>Returns & Refunds</span>
         <i class="fas fa-chevron-right"></i>
       </div>
-      <div class="profile-item">
+      <div class="profile-item" onclick="openSupportModal('privacy')">
         <div class="pi-icon" style="background:rgba(124,58,237,0.08);color:#7c3aed;">
           <i class="fas fa-shield-halved"></i>
         </div>
@@ -2240,7 +2229,7 @@
 
     function updateCartBadge() {
       const count = cart.reduce((s, i) => s + i.qty, 0);
-      ['cart-badge-top','nav-cart-badge','sidebar-cart-badge'].forEach(id => {
+      ['cart-badge-top','nav-cart-badge'].forEach(id => {
         const el = document.getElementById(id);
         if (!el) return;
         el.textContent = count;
@@ -2467,10 +2456,171 @@
 
     document.querySelectorAll('.fade-in').forEach(el => globalObserver.observe(el));
 
+    // ===== SUPPORT MODAL =====
+    function openSupportModal(type) {
+      const sheet = document.getElementById('support-sheet-content');
+      if (type === 'contact') {
+        sheet.innerHTML = `
+          <div class="support-sheet-handle"></div>
+          <h3>Contact Support</h3>
+          <p class="support-sub">Our team is ready to help — choose how you'd like to reach us.</p>
+
+          <a class="support-action-btn" href="tel:+27712345678">
+            <div class="support-action-icon" style="background:rgba(22,163,74,0.1);color:var(--green);">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="support-action-text">
+              <strong>Call Us</strong>
+              <span>+27 71 234 5678 · Mon–Fri 8am–6pm</span>
+            </div>
+          </a>
+
+          <a class="support-action-btn" href="https://wa.me/27712345678?text=Hi%20Rare%20Grade%20Tech,%20I%20need%20support" target="_blank">
+            <div class="support-action-icon" style="background:rgba(37,211,102,0.1);color:#25d366;">
+              <i class="fab fa-whatsapp"></i>
+            </div>
+            <div class="support-action-text">
+              <strong>WhatsApp</strong>
+              <span>Chat with us on WhatsApp — fast replies</span>
+            </div>
+          </a>
+
+          <a class="support-action-btn" href="mailto:support@raregradetech.co.za">
+            <div class="support-action-icon" style="background:rgba(37,99,235,0.1);color:var(--blue);">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="support-action-text">
+              <strong>Email Us</strong>
+              <span>support@raregradetech.co.za</span>
+            </div>
+          </a>
+
+          <a class="support-action-btn" href="https://maps.google.com/?q=Mokopane,+Limpopo,+South+Africa" target="_blank">
+            <div class="support-action-icon" style="background:rgba(234,88,12,0.1);color:var(--orange);">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="support-action-text">
+              <strong>Visit Us</strong>
+              <span>Mokopane, Limpopo, South Africa</span>
+            </div>
+          </a>
+
+          <button class="support-close-btn" onclick="closeSupportModal()">Close</button>`;
+      } else if (type === 'returns') {
+        sheet.innerHTML = `
+          <div class="support-sheet-handle"></div>
+          <h3>Returns & Refunds</h3>
+          <p class="support-sub">Submit a return request and our team will get back to you within 24 hours.</p>
+
+          <div class="return-form-group">
+            <label>Your Full Name</label>
+            <input type="text" id="ret-name" placeholder="Full name"/>
+          </div>
+          <div class="return-form-group">
+            <label>Email Address</label>
+            <input type="email" id="ret-email" placeholder="email@example.com"/>
+          </div>
+          <div class="return-form-group">
+            <label>Order / Product Name</label>
+            <input type="text" id="ret-product" placeholder="e.g. Gaming Laptop Pro X"/>
+          </div>
+          <div class="return-form-group">
+            <label>Reason for Return</label>
+            <select id="ret-reason">
+              <option value="">Select a reason...</option>
+              <option>Damaged / Defective item</option>
+              <option>Wrong item received</option>
+              <option>Changed my mind</option>
+              <option>Item not as described</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="return-form-group">
+            <label>Additional Details</label>
+            <textarea id="ret-details" placeholder="Please describe the issue in more detail..."></textarea>
+          </div>
+          <button class="btn-apply" onclick="submitReturnRequest()" style="width:100%;">
+            <i class="fas fa-paper-plane"></i> Submit Return Request
+          </button>
+          <button class="support-close-btn" onclick="closeSupportModal()">Cancel</button>`;
+      } else if (type === 'privacy') {
+        sheet.innerHTML = `
+          <div class="support-sheet-handle"></div>
+          <h3>Privacy Policy</h3>
+          <p class="support-sub">Last updated: March 2025</p>
+          <div class="policy-body">
+            <h4>1. Information We Collect</h4>
+            <p>We collect personal information you provide when placing orders, including your name, email address, phone number, and delivery address. We also collect browsing data to improve your shopping experience.</p>
+            <h4>2. How We Use Your Information</h4>
+            <p>Your information is used to process orders, communicate order status, provide customer support, and improve our services. We do not sell your personal data to third parties.</p>
+            <h4>3. Data Security</h4>
+            <p>All data is transmitted over SSL-encrypted connections. Order data is stored securely on Firebase (Google Cloud). We implement industry-standard security measures to protect your information.</p>
+            <h4>4. Cookies</h4>
+            <p>We use localStorage to store your cart and wishlist locally on your device. No tracking cookies are used. Your shopping data stays on your device.</p>
+            <h4>5. Your Rights</h4>
+            <p>You have the right to access, correct, or delete your personal information at any time. Contact us at privacy@raregradetech.co.za to exercise these rights.</p>
+            <h4>6. Contact</h4>
+            <p>For privacy-related queries, email us at privacy@raregradetech.co.za or call +27 71 234 5678.</p>
+          </div>
+          <button class="support-close-btn" onclick="closeSupportModal()">Close</button>`;
+      }
+      document.getElementById('support-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSupportModal() {
+      document.getElementById('support-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function submitReturnRequest() {
+      const name = document.getElementById('ret-name')?.value?.trim();
+      const email = document.getElementById('ret-email')?.value?.trim();
+      const product = document.getElementById('ret-product')?.value?.trim();
+      const reason = document.getElementById('ret-reason')?.value;
+      const details = document.getElementById('ret-details')?.value?.trim();
+
+      if (!name || !email || !product || !reason) {
+        showToast('Missing Info', 'Please fill in all required fields.', 'error');
+        return;
+      }
+
+      const btn = document.querySelector('#support-sheet-content .btn-apply');
+      btn.textContent = 'Submitting...';
+      btn.disabled = true;
+
+      db.ref('rgt_returns').push({
+        name, email, product, reason, details,
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        status: 'pending'
+      }).then(() => {
+        document.getElementById('support-sheet-content').innerHTML = `
+          <div class="support-sheet-handle"></div>
+          <div style="text-align:center;padding:32px 0;">
+            <div style="width:72px;height:72px;border-radius:50%;background:rgba(22,163,74,0.1);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:2rem;color:var(--green);margin:0 auto 20px;">
+              <i class="fas fa-check"></i>
+            </div>
+            <h3 style="margin-bottom:10px;">Request Submitted!</h3>
+            <p style="color:var(--text-2);font-size:0.9rem;margin-bottom:28px;">Thank you ${name}. We'll review your return request and contact you at <strong>${email}</strong> within 24 hours.</p>
+            <button class="btn-apply" onclick="closeSupportModal()" style="width:100%;">Done</button>
+          </div>`;
+      }).catch(() => {
+        showToast('Error', 'Failed to submit. Please try again.', 'error');
+        btn.textContent = 'Submit Return Request';
+        btn.disabled = false;
+      });
+    }
+
     // ===== INIT =====
     loadProducts();
     updateCartBadge();
     updateWishlistBadge();
   </script>
+  <!-- ===== SUPPORT MODAL ===== -->
+  <div id="support-modal">
+    <div class="filter-scrim" onclick="closeSupportModal()"></div>
+    <div class="support-sheet" id="support-sheet-content"></div>
+  </div>
+
 </body>
 </html>
