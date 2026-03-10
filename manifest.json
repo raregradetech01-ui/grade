@@ -3,13 +3,13 @@
   "name": "MTech Solutions Tech Shop",
   "icons": [
     {
-      "src": "icon-192.png",
-      "type": "image/png",
+      "src": "https://i.postimg.cc/ZqfXHrm4/images.jpg",
+      "type": "https://i.postimg.cc/ZqfXHrm4/images.jpg",
       "sizes": "192x192"
     },
     {
-      "src": "icon-512.png",
-      "type": "image/png",
+      "src": "https://i.postimg.cc/ZqfXHrm4/images.jpg",
+      "type": "https://i.postimg.cc/ZqfXHrm4/images.jpg",
       "sizes": "512x512"
     }
   ],
