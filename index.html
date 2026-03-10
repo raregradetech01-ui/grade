@@ -48,6 +48,7 @@
       --shadow-sm: 0 2px 8px rgba(37,99,235,0.08);
       --shadow-md: 0 8px 32px rgba(37,99,235,0.12);
       --shadow-lg: 0 20px 60px rgba(37,99,235,0.15);
+      --sidebar-w: 220px;
 
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
@@ -188,7 +189,97 @@
     .ios-step p { font-size: 0.9rem; color: var(--text-2); }
     .ios-step strong { color: var(--text); }
 
-    /* ===== TOP NAV ===== */
+    /* ===== SIDEBAR (Desktop) ===== */
+    #sidebar {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: var(--sidebar-w);
+      height: 100vh;
+      z-index: 1000;
+      background: rgba(245,245,255,0.97);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--glass-border);
+      box-shadow: 2px 0 20px rgba(37,99,235,0.07);
+      flex-direction: column;
+      padding: 0 0 24px 0;
+      overflow-y: auto;
+    }
+
+    .sidebar-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1rem; color: var(--text);
+      cursor: pointer;
+      padding: 24px 20px 20px;
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 16px;
+    }
+
+    .sidebar-logo img { height: 28px; flex-shrink: 0; }
+
+    .sidebar-nav {
+      display: flex; flex-direction: column; gap: 4px;
+      padding: 0 12px;
+      flex: 1;
+    }
+
+    .sidebar-link {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      color: var(--text-2);
+      font-size: 0.9rem; font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Syne', sans-serif;
+      border: 1px solid transparent;
+      position: relative;
+    }
+
+    .sidebar-link i {
+      width: 20px; text-align: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .sidebar-link:hover {
+      background: var(--blue-glow);
+      border-color: rgba(37,99,235,0.15);
+      color: var(--blue-bright);
+    }
+
+    .sidebar-link.active {
+      background: var(--blue-glow);
+      border-color: rgba(37,99,235,0.2);
+      color: var(--blue-bright);
+    }
+
+    .sidebar-cart-badge {
+      margin-left: auto;
+      min-width: 20px; height: 20px;
+      border-radius: 999px;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.65rem; font-weight: 700;
+      display: none;
+      align-items: center; justify-content: center;
+      padding: 0 5px;
+    }
+
+    .sidebar-bottom {
+      padding: 12px 12px 0;
+      border-top: 1px solid var(--glass-border);
+      margin-top: 12px;
+    }
+
+    .sidebar-bottom p {
+      font-size: 0.72rem; color: var(--text-3);
+      padding: 8px 14px;
+      line-height: 1.5;
+    }
+
+    /* ===== TOP NAV (Desktop — slim, no links) ===== */
     #top-header {
       position: fixed; top: 0; left: 0; right: 0;
       z-index: 1000;
@@ -216,17 +307,8 @@
 
     .nav-logo img { height: 28px; }
 
-    .nav-links-desktop {
-      display: flex; gap: 2rem; align-items: center;
-    }
-
-    .nav-links-desktop a {
-      font-size: 0.875rem; font-weight: 500; color: var(--text-2);
-      transition: color 0.2s;
-      cursor: pointer;
-    }
-
-    .nav-links-desktop a:hover, .nav-links-desktop a.active { color: var(--blue-bright); }
+    /* Desktop: hide old inline nav links */
+    .nav-links-desktop { display: none; }
 
     .nav-right { display: flex; align-items: center; gap: 12px; }
 
@@ -554,17 +636,18 @@
     .shop-controls {
       max-width: 1400px; margin: 0 auto;
       padding: 24px;
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: center; justify-content: center;
       flex-wrap: wrap; gap: 16px;
     }
 
+    /* ── centered search bar on desktop ── */
     .search-bar {
       display: flex; align-items: center; gap: 10px;
       background: var(--ink-2);
       border: 1px solid var(--glass-border);
       border-radius: 999px;
       padding: 10px 20px;
-      flex: 1; max-width: 400px;
+      width: 100%; max-width: 520px;
       transition: border-color 0.2s, box-shadow 0.2s;
       box-shadow: var(--shadow-sm);
     }
@@ -1381,9 +1464,17 @@
       .hero h1 { font-size: 2.2rem; }
     }
 
+    /* ===== DESKTOP SIDEBAR LAYOUT ===== */
     @media (min-width: 768px) {
       #bottom-nav { display: none; }
-      body { padding-bottom: 0; }
+      body { padding-bottom: 0; padding-left: var(--sidebar-w); }
+      #sidebar { display: flex; }
+      /* Top header sits to the right of the sidebar */
+      #top-header { left: var(--sidebar-w); }
+      /* Hide the logo + cart button in top header on desktop since sidebar handles nav */
+      #top-header .nav-logo { display: none; }
+      #top-header .nav-right { display: none; }
+      /* Center the top header area — it becomes essentially invisible but keeps scroll effect */
     }
 
     /* Scrollbar */
@@ -1458,6 +1549,32 @@
     </div>
     <button class="btn-apply" style="margin-top:24px;" onclick="closeIosSheet()">Got it!</button>
   </div>
+
+  <!-- ===== DESKTOP SIDEBAR ===== -->
+  <nav id="sidebar">
+    <a class="sidebar-logo" onclick="navigateTo('shop')">
+      <img src="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png" alt="Rare Grade Tech"/>
+      <span>RARE GRADE</span>
+    </a>
+    <div class="sidebar-nav">
+      <a class="sidebar-link active" data-nav="shop" onclick="navigateTo('shop')">
+        <i class="fas fa-store"></i> Shop
+      </a>
+      <a class="sidebar-link" data-nav="wishlist" onclick="navigateTo('wishlist')">
+        <i class="far fa-heart"></i> Wishlist
+      </a>
+      <a class="sidebar-link" data-nav="cart" onclick="navigateTo('cart')">
+        <i class="fas fa-shopping-bag"></i> Cart
+        <span class="sidebar-cart-badge" id="sidebar-cart-badge">0</span>
+      </a>
+      <a class="sidebar-link" data-nav="profile" onclick="navigateTo('profile')">
+        <i class="fas fa-user"></i> Account
+      </a>
+    </div>
+    <div class="sidebar-bottom">
+      <p>Rare Grade Tech<br/>Mokopane, Limpopo, ZA</p>
+    </div>
+  </nav>
 
   <!-- ===== TOP HEADER ===== -->
   <header id="top-header">
@@ -2123,7 +2240,7 @@
 
     function updateCartBadge() {
       const count = cart.reduce((s, i) => s + i.qty, 0);
-      ['cart-badge-top','nav-cart-badge'].forEach(id => {
+      ['cart-badge-top','nav-cart-badge','sidebar-cart-badge'].forEach(id => {
         const el = document.getElementById(id);
         if (!el) return;
         el.textContent = count;
