@@ -5,14 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
   <title>Tech Shop | MTech Solutions - Premium Hardware & Software</title>
   <meta name="description" content="Premium tech hardware, software licenses, and IT equipment. Enterprise-grade technology for businesses and professionals in Mokopane, Limpopo.">
-  <meta name="theme-color" content="#3b82f6">
-  <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiUkFSRSBHcmFkZSBUZWNoIiwic2hvcnRfbmFtZSI6IlJBUkUgR3JhZGUiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2ZmZmZmZiIsInRoZW1lX2NvbG9yIjoiIzNiODJmNiIsImljb25zIjpbeyJzcmMiOiJodHRwczovL2kucG9zdGltZy5jYy93eEZ4dmJ5Zi9SQVJFLUdSQURFLUxPR08tYmx1ZS5wbmciLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn1dfQ==">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com ">
+  <link rel="preconnect" href="https://fonts.gstatic.com " crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300 ;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css " />
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js "></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js "></script>
   <style>
     /* --- Design System - Light Theme --- */
     :root {
@@ -1351,15 +1349,6 @@
       font-size: 1.2rem;
       cursor: pointer;
     }
-    #install-banner .close-banner:hover {
-      background: rgba(255,255,255,0.2);
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
   </style>
 </head>
 <body>
@@ -1367,18 +1356,18 @@
   <div id="install-banner">
     <span>Install our mobile app for a better experience!</span>
     <button id="install-btn">Install</button>
-    <button class="close-banner" onclick="hideInstallBanner()">&times;</button>
+    <button class="close-banner" onclick="document.getElementById('install-banner').style.display='none'">&times;</button>
   </div>
 
   <!-- Header -->
   <header id="header">
     <nav>
       <a href="index.html" class="logo">
-        <img src="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png" alt="MTech Solutions">
+        <img src="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png " alt="MTech Solutions">
         <span>RARE GRADE TECH</span>
       </a>
       <div class="nav-links">
-        <a href="index.html">Home</a>
+        <a href="index.html">Home</a
       </div>
       <div class="nav-actions">
         <button class="cart-btn" onclick="toggleCart()" aria-label="Shopping cart">
@@ -1604,7 +1593,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand fade-up">
-          <img src="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png" alt="MTech Solutions">
+          <img src="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png " alt="MTech Solutions">
           <p id="footerAbout">Loading...</p>
           <div class="social-links" id="socialLinks">
             <!-- Social links injected here -->
@@ -1664,7 +1653,7 @@
     const firebaseConfig = {
       apiKey: "AIzaSyAxBT0oESoL62oz_x_Z8cMtdENWZPx4tMI",
       authDomain: "pinotp-d7ef5.firebaseapp.com",
-      databaseURL: "https://pinotp-d7ef5-default-rtdb.firebaseio.com",
+      databaseURL: "https://pinotp-d7ef5-default-rtdb.firebaseio.com ",
       projectId: "pinotp-d7ef5",
       storageBucket: "pinotp-d7ef5.firebasestorage.app",
       messagingSenderId: "708458917827",
@@ -1685,7 +1674,6 @@
       updateCartUI();
       setupEventListeners();
       loadFooter();
-      initInstallBanner();
     });
     function setupEventListeners() {
       // Header scroll
@@ -1706,106 +1694,6 @@
         });
       }, { threshold: 0.1 });
       document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-    }
-    // --- Install Banner Functions ---
-    let deferredPrompt = null;
-    let installBannerHidden = false;
-    
-    function initInstallBanner() {
-      const installBtn = document.getElementById('install-btn');
-      const banner = document.getElementById('install-banner');
-      
-      // Check if already installed (standalone mode)
-      if (window.matchMedia('(display-mode: standalone)').matches || 
-          window.navigator.standalone === true) {
-        return; // Already installed, don't show banner
-      }
-      
-      // Check if user previously dismissed the banner
-      if (localStorage.getItem('installBannerDismissed') === 'true') {
-        return;
-      }
-      
-      // Listen for the beforeinstallprompt event
-      window.addEventListener('beforeinstallprompt', (e) => {
-        // Prevent the mini-infobar from appearing on mobile
-        e.preventDefault();
-        // Store the event for later use
-        deferredPrompt = e;
-        // Show the custom install banner
-        showInstallBanner();
-      });
-      
-      // Handle install button click
-      installBtn.addEventListener('click', async () => {
-        if (!deferredPrompt) {
-          // If no deferred prompt, try alternative methods
-          showManualInstallInstructions();
-          return;
-        }
-        
-        // Show the install prompt
-        deferredPrompt.prompt();
-        
-        // Wait for the user to respond to the prompt
-        const { outcome } = await deferredPrompt.userChoice;
-        
-        if (outcome === 'accepted') {
-          console.log('User accepted the install prompt');
-          hideInstallBanner();
-          // Track successful install
-          localStorage.setItem('pwaInstalled', 'true');
-        } else {
-          console.log('User dismissed the install prompt');
-        }
-        
-        // Clear the deferred prompt variable
-        deferredPrompt = null;
-      });
-      
-      // Listen for app installed event
-      window.addEventListener('appinstalled', () => {
-        console.log('PWA was installed');
-        hideInstallBanner();
-        localStorage.setItem('pwaInstalled', 'true');
-        deferredPrompt = null;
-      });
-      
-      // For iOS Safari - show banner after delay since no beforeinstallprompt event
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-      
-      if (isIOS && isSafari && !deferredPrompt) {
-        setTimeout(() => {
-          if (!installBannerHidden) {
-            showInstallBanner();
-          }
-        }, 3000);
-      }
-    }
-    
-    function showInstallBanner() {
-      const banner = document.getElementById('install-banner');
-      setTimeout(() => {
-        banner.classList.add('visible');
-      }, 1000);
-    }
-    
-    function hideInstallBanner() {
-      const banner = document.getElementById('install-banner');
-      banner.classList.remove('visible');
-      installBannerHidden = true;
-      localStorage.setItem('installBannerDismissed', 'true');
-    }
-    
-    function showManualInstallInstructions() {
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-      
-      if (isIOS) {
-        showToast('Install App', 'Tap the share button and select "Add to Home Screen" to install.', 'info');
-      } else {
-        showToast('Install App', 'Open your browser menu and select "Install app" or "Add to home screen".', 'info');
-      }
     }
     // --- Load Footer ---
     function loadFooter() {
@@ -2024,7 +1912,7 @@
               <i class="far fa-heart"></i>
             </button>
             <div class="product-image">
-              <img src="${product.image || 'https://via.placeholder.com/400'}" alt="${product.name}" loading="lazy">
+              <img src="${product.image || 'https://via.placeholder.com/400 '}" alt="${product.name}" loading="lazy">
               <div class="quick-view">
                 <button class="quick-view-btn" onclick="openModal('${product.id}')">Quick View</button>
               </div>
@@ -2130,7 +2018,7 @@
       cartItems.innerHTML = cart.map(item => `
         <div class="cart-item">
           <div class="cart-item-image">
-            <img src="${item.image || 'https://via.placeholder.com/100'}" alt="${item.name}">
+            <img src="${item.image || 'https://via.placeholder.com/100 '}" alt="${item.name}">
           </div>
           <div class="cart-item-details">
             <div class="cart-item-title">${item.name}</div>
@@ -2202,6 +2090,34 @@
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 5000);
     }
+
+    // Installation Banner Script
+    document.addEventListener('DOMContentLoaded', () => {
+      const installBtn = document.getElementById('install-btn');
+      installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+          } else {
+            console.log('User dismissed the install prompt');
+          }
+          deferredPrompt = null;
+        }
+      });
+      // Show banner with animation
+      const banner = document.getElementById('install-banner');
+      setTimeout(() => {
+        banner.classList.add('visible');
+      }, 100);
+    });
+
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+    });
   </script>
 </body>
-</html>
+</html> 
