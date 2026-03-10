@@ -302,6 +302,17 @@
       align-items: center; justify-content: center;
     }
 
+    .nav-tab-wish-badge {
+      position: absolute; top: 8px; right: calc(50% - 18px);
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.6rem; font-weight: 700;
+      display: none;
+      align-items: center; justify-content: center;
+    }
+
     /* ===== PAGES / VIEWS ===== */
     .page { display: none; }
     .page.active { display: block; }
@@ -1470,7 +1481,7 @@
   <!-- ===== PAGES ===== -->
 
   <!-- HOME PAGE -->
-  <div id="page-home" class="page active">
+  <div id="page-home" class="page">
     <section class="hero">
       <div class="hero-bg"></div>
       <div class="hero-grid"></div>
@@ -1590,7 +1601,7 @@
   </div>
 
   <!-- SHOP PAGE -->
-  <div id="page-shop" class="page">
+  <div id="page-shop" class="page active">
     <div class="shop-page-header">
       <div class="section-label">Catalogue</div>
       <h1 class="fade-in">Tech Shop</h1>
@@ -1734,16 +1745,17 @@
 
   <!-- ===== BOTTOM NAV ===== -->
   <nav id="bottom-nav">
-    <button class="nav-tab active" data-tab="home" onclick="navigateTo('home')">
+    <button class="nav-tab" data-tab="home" onclick="navigateTo('home')">
       <i class="fas fa-house"></i>
       <span>Home</span>
     </button>
-    <button class="nav-tab" data-tab="shop" onclick="navigateTo('shop')">
+    <button class="nav-tab active" data-tab="shop" onclick="navigateTo('shop')">
       <i class="fas fa-store"></i>
       <span>Shop</span>
     </button>
     <button class="nav-tab" data-tab="wishlist" onclick="navigateTo('wishlist')">
       <i class="far fa-heart"></i>
+      <span class="nav-tab-wish-badge" id="nav-wish-badge">0</span>
       <span>Saved</span>
     </button>
     <button class="nav-tab" data-tab="cart" onclick="navigateTo('cart')">
@@ -1838,7 +1850,7 @@
     let filteredProducts = [];
     let cart = JSON.parse(localStorage.getItem('rgt_cart') || '[]');
     let wishlist = JSON.parse(localStorage.getItem('rgt_wishlist') || '[]');
-    let currentPage = 'home';
+    let currentPage = 'shop';
     let activeCat = 'all';
     let modalQty = 1;
     let currentModalProduct = null;
@@ -2312,6 +2324,14 @@
         </div>`;
     }
 
+    function updateWishlistBadge() {
+      const count = wishlist.length;
+      const el = document.getElementById('nav-wish-badge');
+      if (!el) return;
+      el.textContent = count;
+      el.style.display = count > 0 ? 'flex' : 'none';
+    }
+
     // ===== WISHLIST =====
     function toggleWishlist(id, btn) {
       const idx = wishlist.indexOf(id);
@@ -2329,6 +2349,7 @@
         showToast('Removed', 'Item removed from wishlist.', 'info');
       }
       localStorage.setItem('rgt_wishlist', JSON.stringify(wishlist));
+      updateWishlistBadge();
       if (currentPage === 'wishlist') renderWishlistPage();
     }
 
@@ -2455,6 +2476,7 @@
     // ===== INIT =====
     loadProducts();
     updateCartBadge();
+    updateWishlistBadge();
   </script>
 </body>
 </html>
