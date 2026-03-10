@@ -2098,20 +2098,29 @@
     // Installation Banner Script
     document.addEventListener('DOMContentLoaded', () => {
       const installBtn = document.getElementById('install-btn');
-      installBtn.addEventListener('click', () => {
-        const apkUrl = 'path/to/your/app.apk'; // Replace with your actual APK URL
-        const link = document.createElement('a');
-        link.href = apkUrl;
-        link.download = 'app.apk';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+      installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+          } else {
+            console.log('User dismissed the install prompt');
+          }
+          deferredPrompt = null;
+        }
       });
       // Show banner with animation
       const banner = document.getElementById('install-banner');
       setTimeout(() => {
         banner.classList.add('visible');
       }, 100);
+    });
+
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
     });
   </script>
 </body>
