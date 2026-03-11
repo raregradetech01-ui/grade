@@ -1341,6 +1341,14 @@
       border-radius: 999px;
       cursor: pointer;
       font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    #install-banner button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    #install-banner button:active {
+      transform: translateY(0);
     }
     #install-banner .close-banner {
       position: absolute;
@@ -1349,15 +1357,21 @@
       color: #ffffff;
       font-size: 1.2rem;
       cursor: pointer;
+      border: none;
+      padding: 0.5rem;
+      transition: transform 0.2s ease;
+    }
+    #install-banner .close-banner:hover {
+      transform: scale(1.2);
     }
   </style>
 </head>
 <body>
   <!-- Installation Banner -->
   <div id="install-banner">
-    <span>Install our mobile app for a better experience!</span>
+    <span id="bannerText">Install our mobile app for a better experience!</span>
     <button id="install-btn">Install</button>
-    <button class="close-banner" onclick="document.getElementById('install-banner').style.display='none'">&times;</button>
+    <button class="close-banner" onclick="closeBanner()">&times;</button>
   </div>
 
   <!-- Header -->
@@ -1368,7 +1382,7 @@
         <span>RARE GRADE TECH</span>
       </a>
       <div class="nav-links">
-        <a href="index.html">Home</a
+        <a href="index.html">Home</a>
       </div>
       <div class="nav-actions">
         <button class="cart-btn" onclick="toggleCart()" aria-label="Shopping cart">
@@ -1669,8 +1683,92 @@
     let filteredProducts = [];
     let cart = JSON.parse(localStorage.getItem('mtech_cart')) || [];
     let currentView = 'grid';
+    let deferredPrompt = null;
+    let installPromptClosed = localStorage.getItem('installPromptClosed') === 'true';
+
+    // --- Installation Banner Script ---
+    function setupInstallPrompt() {
+      const installBanner = document.getElementById('install-banner');
+      const installBtn = document.getElementById('install-btn');
+
+      // Listen for the beforeinstallprompt event
+      window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent the mini-infobar from appearing on mobile
+        e.preventDefault();
+        // Store the event for later use
+        deferredPrompt = e;
+        // Show the banner if not previously closed
+        if (!installPromptClosed) {
+          showInstallBanner();
+        }
+      });
+
+      // Handle install button click
+      installBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        
+        if (!deferredPrompt) {
+          console.log('Install prompt not available');
+          return;
+        }
+
+        // Show the install prompt
+        deferredPrompt.prompt();
+
+        // Wait for user to respond
+        const { outcome } = await deferredPrompt.userChoice;
+        
+        if (outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+          showToast('Success', 'App installation started!');
+          hideInstallBanner();
+          installPromptClosed = true;
+          localStorage.setItem('installPromptClosed', 'true');
+        } else if (outcome === 'dismissed') {
+          console.log('User dismissed the install prompt');
+          showToast('Dismissed', 'You can install the app anytime from your browser menu.', 'info');
+        }
+
+        // Clear the deferred prompt for future use
+        deferredPrompt = null;
+      });
+
+      // Listen for app installed event
+      window.addEventListener('appinstalled', () => {
+        console.log('App was installed successfully');
+        hideInstallBanner();
+        installPromptClosed = true;
+        localStorage.setItem('installPromptClosed', 'true');
+        showToast('Success', 'App installed successfully!');
+      });
+
+      // Show banner initially if not closed before
+      setTimeout(() => {
+        if (deferredPrompt && !installPromptClosed) {
+          showInstallBanner();
+        }
+      }, 1500);
+    }
+
+    function showInstallBanner() {
+      const banner = document.getElementById('install-banner');
+      banner.classList.add('visible');
+    }
+
+    function hideInstallBanner() {
+      const banner = document.getElementById('install-banner');
+      banner.classList.remove('visible');
+    }
+
+    function closeBanner() {
+      hideInstallBanner();
+      installPromptClosed = true;
+      localStorage.setItem('installPromptClosed', 'true');
+    }
+
     // --- Initialization ---
     document.addEventListener('DOMContentLoaded', () => {
+      setupInstallPrompt();
       loadProducts();
       updateCartUI();
       setupEventListeners();
@@ -2091,34 +2189,6 @@
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 5000);
     }
-
-    // Installation Banner Script
-    document.addEventListener('DOMContentLoaded', () => {
-      const installBtn = document.getElementById('install-btn');
-      installBtn.addEventListener('click', async () => {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === 'accepted') {
-            console.log('User accepted the install prompt');
-          } else {
-            console.log('User dismissed the install prompt');
-          }
-          deferredPrompt = null;
-        }
-      });
-      // Show banner with animation
-      const banner = document.getElementById('install-banner');
-      setTimeout(() => {
-        banner.classList.add('visible');
-      }, 100);
-    });
-
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-    });
   </script>
 </body>
 </html>
