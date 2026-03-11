@@ -3,16 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+ 
   <meta name="theme-color" content="#3b82f6">
-  
+ 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="RareGrade">
   <link rel="apple-touch-icon" href="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png">
-
   <link rel="manifest" href="/manifest.json">
-
   <title>Tech Shop | MTech Solutions - Premium Hardware & Software</title>
   <meta name="description" content="Premium tech hardware, software licenses, and IT equipment. Enterprise-grade technology for businesses and professionals in Mokopane, Limpopo.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,25 +38,23 @@
       --orange: #f97316;
       --purple: #a855f7;
       --red: #ef4444;
-   
+  
       --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
       --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
       --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
       --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-   
+  
       --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       --transition-slow: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-   
+  
       --cart-width: 400px;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
- 
     html {
       scroll-behavior: smooth;
       background: var(--bg-primary);
     }
- 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg-primary);
@@ -120,7 +116,6 @@
       animation: loading 1.5s infinite;
       border-radius: 8px;
     }
- 
     @keyframes loading {
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
@@ -1231,7 +1226,7 @@
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hamburger { display: block; }
-   
+  
       .shop-layout {
         grid-template-columns: 1fr;
       }
@@ -1317,7 +1312,6 @@
         bottom: 5rem;
       }
     }
-
     /* Installation Banner Styles */
     #install-banner {
       position: fixed;
@@ -1366,9 +1360,8 @@
   <div id="install-banner">
     <span>Install our mobile app for a better experience!</span>
     <button id="install-btn">Install</button>
-    <button class="close-banner" onclick="document.getElementById('install-banner').style.display='none'">&times;</button>
+    <button class="close-banner">&times;</button>
   </div>
-
   <!-- Header -->
   <header id="header">
     <nav>
@@ -1377,7 +1370,7 @@
         <span>RARE GRADE TECH</span>
       </a>
       <div class="nav-links">
-        <a href="index.html">Home</a
+        <a href="index.html">Home</a>
       </div>
       <div class="nav-actions">
         <button class="cart-btn" onclick="toggleCart()" aria-label="Shopping cart">
@@ -1609,7 +1602,7 @@
             <!-- Social links injected here -->
           </div>
         </div>
-  
+ 
         <div class="footer-column fade-up" style="transition-delay: 0.1s;">
           <h4>Services</h4>
           <ul class="footer-links">
@@ -1620,7 +1613,7 @@
             <li><a href="shop.html">Hardware</a></li>
           </ul>
         </div>
-  
+ 
         <div class="footer-column fade-up" style="transition-delay: 0.2s;">
           <h4>Company</h4>
           <ul class="footer-links">
@@ -1630,7 +1623,7 @@
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
-  
+ 
         <div class="footer-column fade-up" style="transition-delay: 0.3s;">
           <h4>Contact</h4>
           <div class="footer-contact">
@@ -1639,7 +1632,7 @@
             <p><i class="fas fa-envelope"></i> <span id="footerEmail">Loading...</span></p>
             <p><i class="fas fa-clock"></i> <span id="footerHours">Loading...</span></p>
           </div>
-    
+   
           <div style="margin-top: 2rem;">
             <h4 style="margin-bottom: 0.75rem; font-size: 0.9rem;">Newsletter</h4>
             <form class="newsletter-form">
@@ -1658,6 +1651,7 @@
       </div>
     </div>
   </footer>
+
   <script>
     // --- Firebase Config ---
     const firebaseConfig = {
@@ -1716,7 +1710,7 @@
           document.getElementById('footerEmail').textContent = data.email || 'info@mtechsolutions.com';
           document.getElementById('footerHours').textContent = data.hours || 'Mon - Fri: 08:00 - 17:00';
           document.getElementById('footerCopyright').textContent = data.copyright || '© 2026 MTech Solutions. All rights reserved.';
-       
+      
           const socialContainer = document.getElementById('socialLinks');
           socialContainer.innerHTML = '';
           const socials = [
@@ -1746,11 +1740,11 @@
           const email = emailInput.value.trim();
           const btn = this.querySelector('button');
           if (!email) return;
-     
+    
           const originalText = btn.innerText;
           btn.innerText = 'Sending...';
           btn.disabled = true;
-     
+    
           const newSubscriberRef = db.ref('mtech_newsletter_signups').push();
           newSubscriberRef.set({
             email: email,
@@ -1787,10 +1781,10 @@
             price: Number(p.price) || 0,
             priceOrig: p.priceOrig ? Number(p.priceOrig) : null
           }));
-       
+      
           // Sort by newest (assuming array order)
           allProducts.reverse();
-       
+      
           updateCategoryCounts();
           filterProducts();
         }
@@ -1808,7 +1802,7 @@
         security: allProducts.filter(p => p.category === 'security').length,
         accessories: allProducts.filter(p => p.category === 'accessories').length
       };
-   
+  
       Object.entries(counts).forEach(([cat, count]) => {
         const el = document.getElementById(`count${cat.charAt(0).toUpperCase() + cat.slice(1)}`);
         if (el) el.textContent = count;
@@ -1818,7 +1812,7 @@
     function filterProducts() {
       const checkboxes = document.querySelectorAll('.filter-option input[type="checkbox"]:checked');
       const selectedCategories = Array.from(checkboxes).map(cb => cb.value).filter(v => v !== 'all');
-   
+  
       const minPrice = Number(document.getElementById('minPrice').value) || 0;
       const maxPrice = Number(document.getElementById('maxPrice').value) || Infinity;
       const inStockOnly = document.getElementById('inStockOnly').checked;
@@ -1828,23 +1822,23 @@
         if (selectedCategories.length > 0 && !selectedCategories.includes(p.category)) {
           return false;
         }
-     
+    
         // Price filter
         if (p.price < minPrice || p.price > maxPrice) return false;
-     
+    
         // Stock filter
         if (inStockOnly && p.stock === 'out') return false;
-     
+    
         // Featured filter
         if (featuredOnly && !p.featured) return false;
-     
+    
         return true;
       });
       sortProducts();
     }
     function sortProducts() {
       const sortValue = document.getElementById('sortSelect').value;
-   
+  
       filteredProducts.sort((a, b) => {
         switch(sortValue) {
           case 'price-low': return a.price - b.price;
@@ -1859,7 +1853,7 @@
       currentView = view;
       document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
       event.currentTarget.classList.add('active');
-   
+  
       const container = document.getElementById('productsContainer');
       container.classList.toggle('list-view', view === 'list');
     }
@@ -1877,7 +1871,7 @@
     function renderProducts() {
       const container = document.getElementById('productsContainer');
       const emptyState = document.getElementById('emptyState');
-   
+  
       document.getElementById('showingCount').textContent = filteredProducts.length;
       document.getElementById('totalCount').textContent = allProducts.length;
       if (filteredProducts.length === 0) {
@@ -1889,7 +1883,7 @@
       emptyState.style.display = 'none';
       container.innerHTML = filteredProducts.map((product, index) => {
         const delay = index * 0.05;
-     
+    
         // Badges
         const badges = [];
         if (product.featured) badges.push('<span class="badge-tag featured">Featured</span>');
@@ -1899,7 +1893,7 @@
                           product.tag.toLowerCase().includes('sale') ? 'sale' : '';
           badges.push(`<span class="badge-tag ${tagClass}">${product.tag}</span>`);
         }
-     
+    
         // Stock status
         let stockClass = 'in-stock';
         let stockText = 'In Stock';
@@ -1956,7 +1950,7 @@
           if (entry.isIntersecting) entry.target.classList.add('visible');
         });
       }, { threshold: 0.1 });
-   
+  
       document.querySelectorAll('.product-card').forEach(el => observer.observe(el));
     }
     // --- Cart Functions ---
@@ -1978,7 +1972,7 @@
       saveCart();
       updateCartUI();
       showToast('Added to cart', `${product.name} has been added to your cart.`);
-   
+  
       // Animate cart icon
       const cartBtn = document.querySelector('.cart-btn');
       cartBtn.style.transform = 'scale(1.2)';
@@ -1992,13 +1986,13 @@
     function updateQty(productId, change) {
       const item = cart.find(item => item.id === productId);
       if (!item) return;
-   
+  
       item.qty += change;
       if (item.qty <= 0) {
         removeFromCart(productId);
         return;
       }
-   
+  
       saveCart();
       updateCartUI();
     }
@@ -2010,7 +2004,7 @@
       const cartCountEl = document.getElementById('cartCount');
       cartCountEl.textContent = count;
       cartCountEl.style.display = count > 0 ? 'flex' : 'none';
-   
+  
       document.getElementById('cartItemCount').textContent = count;
       const cartItems = document.getElementById('cartItems');
       const cartFooter = document.getElementById('cartFooter');
@@ -2059,7 +2053,7 @@
     }
     function checkout() {
       if (cart.length === 0) return;
-   
+  
       // Create order in Firebase
       const orderRef = db.ref('mtech_orders').push();
       orderRef.set({
@@ -2101,46 +2095,78 @@
       setTimeout(() => toast.classList.remove('show'), 5000);
     }
 
-    // Installation Banner Script
-    document.addEventListener('DOMContentLoaded', () => {
-      const installBtn = document.getElementById('install-btn');
-      installBtn.addEventListener('click', async () => {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === 'accepted') {
-            console.log('User accepted the install prompt');
-          } else {
-            console.log('User dismissed the install prompt');
-          }
-          deferredPrompt = null;
-        }
-      });
-      // Show banner with animation
-      const banner = document.getElementById('install-banner');
-      setTimeout(() => {
-        banner.classList.add('visible');
-      }, 100);
-    });
+    // === FIXED PWA INSTALL BANNER (only shows when install is possible) ===
+    let deferredPrompt = null;
 
-    let deferredPrompt;
+    // These listeners must be at top level (fires immediately)
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
+      const banner = document.getElementById('install-banner');
+      if (banner) banner.classList.add('visible');
     });
 
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then((registration) => {
-          console.log('RareGrade Service Worker registered with scope:', registration.scope);
-        })
-        .catch((error) => {
-          console.error('Service Worker registration failed:', error);
+    window.addEventListener('appinstalled', () => {
+      const banner = document.getElementById('install-banner');
+      if (banner) banner.classList.remove('visible');
+      deferredPrompt = null;
+    });
+
+    // Install button and close button handlers (run after DOM ready)
+    document.addEventListener('DOMContentLoaded', () => {
+      const installBtn = document.getElementById('install-btn');
+      const closeBtn = document.querySelector('.close-banner');
+
+      if (installBtn) {
+        installBtn.addEventListener('click', async () => {
+          if (!deferredPrompt) {
+            alert("Install prompt not available right now.\n\nMake sure you're using Chrome/Edge on Android or desktop Chrome, and the site is served over HTTPS.");
+            return;
+          }
+
+          const originalText = installBtn.innerHTML;
+          installBtn.innerHTML = 'Installing...';
+
+          try {
+            await deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+
+            if (outcome === 'accepted') {
+              const banner = document.getElementById('install-banner');
+              if (banner) banner.classList.remove('visible');
+            }
+          } catch (err) {
+            console.error(err);
+          } finally {
+            deferredPrompt = null;
+            installBtn.innerHTML = originalText;
+          }
         });
-    });
-  }
-</script>
+      }
 
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          const banner = document.getElementById('install-banner');
+          if (banner) {
+            banner.style.display = 'none';
+          }
+          if (deferredPrompt) deferredPrompt = null;
+        });
+      }
+    });
+
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('RareGrade Service Worker registered with scope:', registration.scope);
+          })
+          .catch((error) => {
+            console.error('Service Worker registration failed:', error);
+          });
+      });
+    }
+  </script>
 </body>
 </html>
