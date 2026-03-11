@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
   <meta name="theme-color" content="#3b82f6">
- 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="RareGrade">
@@ -38,16 +36,16 @@
       --orange: #f97316;
       --purple: #a855f7;
       --red: #ef4444;
-  
+ 
       --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
       --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
       --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
       --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  
+ 
       --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       --transition-slow: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  
+ 
       --cart-width: 400px;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1226,7 +1224,7 @@
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hamburger { display: block; }
-  
+ 
       .shop-layout {
         grid-template-columns: 1fr;
       }
@@ -1352,6 +1350,84 @@
       color: #ffffff;
       font-size: 1.2rem;
       cursor: pointer;
+    }
+
+    /* === MOBILE OPTIMIZATIONS - BOTTOM NAVBAR === */
+    .bottom-navbar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+      z-index: 1250;
+      padding: 6px 0 10px;
+      align-items: center;
+    }
+    .bottom-nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 0.68rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: var(--transition-fast);
+      position: relative;
+      padding: 2px 0;
+    }
+    .bottom-nav-item i {
+      font-size: 1.38rem;
+      margin-bottom: 2px;
+    }
+    .bottom-nav-item.active,
+    .bottom-nav-item:hover {
+      color: var(--accent);
+    }
+    .bottom-nav-item .bottom-cart-count {
+      position: absolute;
+      top: -1px;
+      right: 22%;
+      background: var(--red);
+      color: #ffffff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      min-width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: bounce 0.3s ease;
+    }
+    @media (max-width: 768px) {
+      .bottom-navbar {
+        display: flex;
+      }
+      /* Extra padding so content doesn't hide behind bottom nav */
+      .shop-layout,
+      main.shop-main {
+        padding-bottom: 92px !important;
+      }
+      /* Move floating filter toggle above bottom nav */
+      .mobile-filter-toggle {
+        bottom: 78px;
+      }
+      /* Safe area support for iOS notch / dynamic island */
+      .bottom-navbar {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+      /* Touch-friendly larger tap targets on mobile */
+      .add-to-cart,
+      .quick-view-btn,
+      .qty-btn,
+      .cart-item-remove {
+        min-height: 44px;
+      }
     }
   </style>
 </head>
@@ -1591,6 +1667,32 @@
       <div style="font-size: 0.875rem; color: var(--text-secondary);" id="toastMessage">Product added successfully</div>
     </div>
   </div>
+
+  <!-- BOTTOM NAVBAR - MOBILE ONLY -->
+  <nav class="bottom-navbar">
+    <a href="index.html" class="bottom-nav-item">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="shop.html" class="bottom-nav-item active">
+      <i class="fas fa-store"></i>
+      <span>Shop</span>
+    </a>
+    <a href="#" onclick="toggleMobileFilters(); event.preventDefault()" class="bottom-nav-item">
+      <i class="fas fa-filter"></i>
+      <span>Filter</span>
+    </a>
+    <a href="#" onclick="toggleCart(); event.preventDefault()" class="bottom-nav-item" style="position:relative">
+      <i class="fas fa-shopping-bag"></i>
+      <span class="bottom-cart-count" id="cartCountBottom" style="display:none">0</span>
+      <span>Cart</span>
+    </a>
+    <a href="contact.html" class="bottom-nav-item">
+      <i class="fas fa-user"></i>
+      <span>Account</span>
+    </a>
+  </nav>
+
   <!-- Footer -->
   <footer>
     <div class="container">
@@ -1602,7 +1704,6 @@
             <!-- Social links injected here -->
           </div>
         </div>
- 
         <div class="footer-column fade-up" style="transition-delay: 0.1s;">
           <h4>Services</h4>
           <ul class="footer-links">
@@ -1613,7 +1714,6 @@
             <li><a href="shop.html">Hardware</a></li>
           </ul>
         </div>
- 
         <div class="footer-column fade-up" style="transition-delay: 0.2s;">
           <h4>Company</h4>
           <ul class="footer-links">
@@ -1623,7 +1723,6 @@
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
- 
         <div class="footer-column fade-up" style="transition-delay: 0.3s;">
           <h4>Contact</h4>
           <div class="footer-contact">
@@ -1632,7 +1731,7 @@
             <p><i class="fas fa-envelope"></i> <span id="footerEmail">Loading...</span></p>
             <p><i class="fas fa-clock"></i> <span id="footerHours">Loading...</span></p>
           </div>
-   
+  
           <div style="margin-top: 2rem;">
             <h4 style="margin-bottom: 0.75rem; font-size: 0.9rem;">Newsletter</h4>
             <form class="newsletter-form">
@@ -1710,7 +1809,7 @@
           document.getElementById('footerEmail').textContent = data.email || 'info@mtechsolutions.com';
           document.getElementById('footerHours').textContent = data.hours || 'Mon - Fri: 08:00 - 17:00';
           document.getElementById('footerCopyright').textContent = data.copyright || '© 2026 MTech Solutions. All rights reserved.';
-      
+     
           const socialContainer = document.getElementById('socialLinks');
           socialContainer.innerHTML = '';
           const socials = [
@@ -1740,11 +1839,11 @@
           const email = emailInput.value.trim();
           const btn = this.querySelector('button');
           if (!email) return;
-    
+   
           const originalText = btn.innerText;
           btn.innerText = 'Sending...';
           btn.disabled = true;
-    
+   
           const newSubscriberRef = db.ref('mtech_newsletter_signups').push();
           newSubscriberRef.set({
             email: email,
@@ -1781,10 +1880,10 @@
             price: Number(p.price) || 0,
             priceOrig: p.priceOrig ? Number(p.priceOrig) : null
           }));
-      
+     
           // Sort by newest (assuming array order)
           allProducts.reverse();
-      
+     
           updateCategoryCounts();
           filterProducts();
         }
@@ -1802,7 +1901,7 @@
         security: allProducts.filter(p => p.category === 'security').length,
         accessories: allProducts.filter(p => p.category === 'accessories').length
       };
-  
+ 
       Object.entries(counts).forEach(([cat, count]) => {
         const el = document.getElementById(`count${cat.charAt(0).toUpperCase() + cat.slice(1)}`);
         if (el) el.textContent = count;
@@ -1812,7 +1911,7 @@
     function filterProducts() {
       const checkboxes = document.querySelectorAll('.filter-option input[type="checkbox"]:checked');
       const selectedCategories = Array.from(checkboxes).map(cb => cb.value).filter(v => v !== 'all');
-  
+ 
       const minPrice = Number(document.getElementById('minPrice').value) || 0;
       const maxPrice = Number(document.getElementById('maxPrice').value) || Infinity;
       const inStockOnly = document.getElementById('inStockOnly').checked;
@@ -1822,23 +1921,23 @@
         if (selectedCategories.length > 0 && !selectedCategories.includes(p.category)) {
           return false;
         }
-    
+   
         // Price filter
         if (p.price < minPrice || p.price > maxPrice) return false;
-    
+   
         // Stock filter
         if (inStockOnly && p.stock === 'out') return false;
-    
+   
         // Featured filter
         if (featuredOnly && !p.featured) return false;
-    
+   
         return true;
       });
       sortProducts();
     }
     function sortProducts() {
       const sortValue = document.getElementById('sortSelect').value;
-  
+ 
       filteredProducts.sort((a, b) => {
         switch(sortValue) {
           case 'price-low': return a.price - b.price;
@@ -1853,7 +1952,7 @@
       currentView = view;
       document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
       event.currentTarget.classList.add('active');
-  
+ 
       const container = document.getElementById('productsContainer');
       container.classList.toggle('list-view', view === 'list');
     }
@@ -1871,7 +1970,7 @@
     function renderProducts() {
       const container = document.getElementById('productsContainer');
       const emptyState = document.getElementById('emptyState');
-  
+ 
       document.getElementById('showingCount').textContent = filteredProducts.length;
       document.getElementById('totalCount').textContent = allProducts.length;
       if (filteredProducts.length === 0) {
@@ -1883,7 +1982,7 @@
       emptyState.style.display = 'none';
       container.innerHTML = filteredProducts.map((product, index) => {
         const delay = index * 0.05;
-    
+   
         // Badges
         const badges = [];
         if (product.featured) badges.push('<span class="badge-tag featured">Featured</span>');
@@ -1893,7 +1992,7 @@
                           product.tag.toLowerCase().includes('sale') ? 'sale' : '';
           badges.push(`<span class="badge-tag ${tagClass}">${product.tag}</span>`);
         }
-    
+   
         // Stock status
         let stockClass = 'in-stock';
         let stockText = 'In Stock';
@@ -1950,7 +2049,7 @@
           if (entry.isIntersecting) entry.target.classList.add('visible');
         });
       }, { threshold: 0.1 });
-  
+ 
       document.querySelectorAll('.product-card').forEach(el => observer.observe(el));
     }
     // --- Cart Functions ---
@@ -1972,7 +2071,7 @@
       saveCart();
       updateCartUI();
       showToast('Added to cart', `${product.name} has been added to your cart.`);
-  
+ 
       // Animate cart icon
       const cartBtn = document.querySelector('.cart-btn');
       cartBtn.style.transform = 'scale(1.2)';
@@ -1986,13 +2085,13 @@
     function updateQty(productId, change) {
       const item = cart.find(item => item.id === productId);
       if (!item) return;
-  
+ 
       item.qty += change;
       if (item.qty <= 0) {
         removeFromCart(productId);
         return;
       }
-  
+ 
       saveCart();
       updateCartUI();
     }
@@ -2001,10 +2100,19 @@
     }
     function updateCartUI() {
       const count = cart.reduce((sum, item) => sum + item.qty, 0);
+      
+      // Top navbar count
       const cartCountEl = document.getElementById('cartCount');
       cartCountEl.textContent = count;
       cartCountEl.style.display = count > 0 ? 'flex' : 'none';
-  
+ 
+      // Bottom navbar count (mobile)
+      const cartCountBottomEl = document.getElementById('cartCountBottom');
+      if (cartCountBottomEl) {
+        cartCountBottomEl.textContent = count;
+        cartCountBottomEl.style.display = count > 0 ? 'flex' : 'none';
+      }
+ 
       document.getElementById('cartItemCount').textContent = count;
       const cartItems = document.getElementById('cartItems');
       const cartFooter = document.getElementById('cartFooter');
@@ -2053,7 +2161,7 @@
     }
     function checkout() {
       if (cart.length === 0) return;
-  
+ 
       // Create order in Firebase
       const orderRef = db.ref('mtech_orders').push();
       orderRef.set({
@@ -2094,10 +2202,8 @@
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 5000);
     }
-
     // === FIXED PWA INSTALL BANNER (only shows when install is possible) ===
     let deferredPrompt = null;
-
     // These listeners must be at top level (fires immediately)
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
@@ -2105,32 +2211,26 @@
       const banner = document.getElementById('install-banner');
       if (banner) banner.classList.add('visible');
     });
-
     window.addEventListener('appinstalled', () => {
       const banner = document.getElementById('install-banner');
       if (banner) banner.classList.remove('visible');
       deferredPrompt = null;
     });
-
     // Install button and close button handlers (run after DOM ready)
     document.addEventListener('DOMContentLoaded', () => {
       const installBtn = document.getElementById('install-btn');
       const closeBtn = document.querySelector('.close-banner');
-
       if (installBtn) {
         installBtn.addEventListener('click', async () => {
           if (!deferredPrompt) {
             alert("Install prompt not available right now.\n\nMake sure you're using Chrome/Edge on Android or desktop Chrome, and the site is served over HTTPS.");
             return;
           }
-
           const originalText = installBtn.innerHTML;
           installBtn.innerHTML = 'Installing...';
-
           try {
             await deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
-
             if (outcome === 'accepted') {
               const banner = document.getElementById('install-banner');
               if (banner) banner.classList.remove('visible');
@@ -2143,7 +2243,6 @@
           }
         });
       }
-
       if (closeBtn) {
         closeBtn.addEventListener('click', () => {
           const banner = document.getElementById('install-banner');
@@ -2154,7 +2253,6 @@
         });
       }
     });
-
     // Service Worker Registration
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
