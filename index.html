@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="theme-color" content="#3b82f6">
+  
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="RareGrade">
+  <link rel="apple-touch-icon" href="https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png">
+
   <link rel="manifest" href="/manifest.json">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+
   <title>Tech Shop | MTech Solutions - Premium Hardware & Software</title>
   <meta name="description" content="Premium tech hardware, software licenses, and IT equipment. Enterprise-grade technology for businesses and professionals in Mokopane, Limpopo.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2119,6 +2128,19 @@
       e.preventDefault();
       deferredPrompt = e;
     });
-  </script>
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then((registration) => {
+          console.log('RareGrade Service Worker registered with scope:', registration.scope);
+        })
+        .catch((error) => {
+          console.error('Service Worker registration failed:', error);
+        });
+    });
+  }
+</script>
+
 </body>
 </html>
