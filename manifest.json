@@ -1,15 +1,11 @@
 {
-  "name": "Rare Grade Tech",
+  "name": "RareGrade Tech",
   "short_name": "RareGrade",
-  "description": "Premium tech hardware, software licenses, and IT equipment in Mokopane, Limpopo",
+  "description": "Premium hardware, software licenses, and IT equipment for professionals.",
   "start_url": "/",
-  "scope": "/",
-  "id": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#3b82f6",
-  "orientation": "portrait-primary",
-  "categories": ["shopping", "business"],
   "icons": [
     {
       "src": "https://i.postimg.cc/wxFxvbyf/RARE-GRADE-LOGO-blue.png",
